@@ -39,4 +39,20 @@ export const resolvers = {
       return db.authors.find((author) => author.id === parent.author_id);
     },
   },
+  Mutation: {
+    addGame: (_, args) => {
+      const newGame = {
+        ...args.game,
+        id: Date.now(),
+      };
+
+      db.games.push(newGame);
+
+      return newGame;
+    },
+    deleteGame: (_, args) => {
+      db.games = db.games.filter((game) => game.id !== args.id);
+      return db.games;
+    },
+  },
 };
